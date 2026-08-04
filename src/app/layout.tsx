@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 import AuthButton from "@/components/AuthButton";
@@ -19,22 +20,22 @@ export default function RootLayout({
         <AuthProvider>
           <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
             <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-              <a href="/" className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+              <Link href="/" className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
                 Gear Swap
-              </a>
+              </Link>
               <div className="flex items-center gap-4">
-                <a
+                <Link
                   href="/listings/new"
                   className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   + New Listing
-                </a>
+                </Link>
                 <AuthButton />
               </div>
             </div>
           </header>
           <main className="max-w-6xl mx-auto px-4 py-8">{children}</main>
-        </AuthProvider>
+          </AuthProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
 import { Listing, Filters } from "@/lib/types";
 import FilterBar from "@/components/FilterBar";
@@ -81,12 +82,12 @@ export default function Home() {
               : "No listings match your filters."}
           </p>
           {listings.length === 0 && (
-            <a
+            <Link
               href="/listings/new"
               className="inline-block bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Create a Listing
-            </a>
+            </Link>
           )}
         </div>
       ) : (
