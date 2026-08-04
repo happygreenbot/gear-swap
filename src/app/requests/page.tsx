@@ -124,8 +124,7 @@ export default function RequestsPage() {
                         >
                           {listing?.title ?? req.listingTitle}
                         </Link>
-                        <p className="text-sm text-gray-900 font-medium mt-1">{req.buyerName}</p>
-                        <p className="text-xs text-gray-500">{req.buyerEmail}</p>
+                        <p className="text-sm text-gray-900 font-medium mt-1">@{req.buyerName}</p>
                       </div>
                       <StatusChip status={req.status} />
                     </div>

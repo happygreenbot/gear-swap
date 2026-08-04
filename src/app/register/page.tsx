@@ -8,6 +8,7 @@ import Link from "next/link";
 export default function RegisterPage() {
   const router = useRouter();
   const { register } = useAuth();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,6 +17,11 @@ export default function RegisterPage() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+
+    if (!username.trim()) {
+      setError("Please choose a username");
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
@@ -27,7 +33,7 @@ export default function RegisterPage() {
       return;
     }
 
-    register(email.trim());
+    register(email.trim(), username.trim());
     router.push("/");
   }
 
@@ -51,6 +57,22 @@ export default function RegisterPage() {
           )}
 
           <div className="mb-4">
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              Username
+            </label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="e.g. jordan"
+              autoFocus
+            />
+          </div>
+
+          <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
@@ -62,7 +84,6 @@ export default function RegisterPage() {
               required
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="you@example.com"
-              autoFocus
             />
           </div>
 

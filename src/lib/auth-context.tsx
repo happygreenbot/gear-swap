@@ -12,7 +12,7 @@ interface AuthContextValue {
   user: DemoUser | null;
   isSignedIn: boolean;
   signIn: (email: string) => void;
-  register: (email: string) => void;
+  register: (email: string, username: string) => void;
   signOut: () => void;
 }
 
@@ -20,11 +20,12 @@ const STORAGE_KEY = "gearswap-demo-user";
 
 const OFFICIAL_EMAIL = "official@gearswap.com";
 
-function makeUser(email: string): DemoUser {
+function makeUser(email: string, username?: string): DemoUser {
+  const isOfficial = email.toLowerCase() === OFFICIAL_EMAIL;
   const localPart = email.split("@")[0] || "User";
   return {
-    id: email.toLowerCase() === OFFICIAL_EMAIL ? "official" : `demo-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    name: email.toLowerCase() === OFFICIAL_EMAIL ? "GearSwapOfficial" : localPart,
+    id: isOfficial ? "official" : `demo-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    name: isOfficial ? "GearSwapOfficial" : username?.trim() || localPart,
     email,
   };
 }
@@ -57,8 +58,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     persist(makeUser(email));
   }
 
-  function register(email: string) {
-    persist(makeUser(email));
+  function register(email: string, username: string) {
+    persist(makeUser(email, username));
   }
 
   function signOut() {
