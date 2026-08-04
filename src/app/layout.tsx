@@ -3,6 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 import AuthButton from "@/components/AuthButton";
+import RequestsLink from "@/components/RequestsLink";
 
 export const metadata: Metadata = {
   title: "Gear Swap",
@@ -24,6 +25,7 @@ export default function RootLayout({
                 Gear Swap
               </Link>
               <div className="flex items-center gap-4">
+                <RequestsLink />
                 <Link
                   href="/listings/new"
                   className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"

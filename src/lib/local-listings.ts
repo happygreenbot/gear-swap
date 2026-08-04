@@ -34,6 +34,7 @@ export function addUserListing(input: {
   location: string;
   imageUrl: string;
   contactEmail: string;
+  phone?: string;
   userId: string;
 }): Listing {
   const listing: Listing = {

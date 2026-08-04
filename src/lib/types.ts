@@ -8,6 +8,7 @@ export interface Listing {
   location: string;
   imageUrl: string;
   contactEmail: string;
+  phone?: string;
   createdAt: string;
   userId: string;
 }

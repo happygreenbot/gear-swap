@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Listing } from "@/lib/types";
 
 interface Props {
@@ -17,7 +18,12 @@ export default function ListingCard({ listing, currentUserId, onDelete }: Props)
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+      <Link
+        href={`/listings/${listing.id}`}
+        aria-label={listing.title}
+        className="absolute inset-0 z-10"
+      />
       <div className="aspect-video bg-gray-100 relative overflow-hidden">
         <img
           src={listing.imageUrl}
@@ -54,16 +60,20 @@ export default function ListingCard({ listing, currentUserId, onDelete }: Props)
 
         <p className="text-sm text-gray-600 line-clamp-2 mb-3">{listing.description}</p>
 
-        <div className="flex items-center justify-between">
+        <div className="relative z-20 flex items-center justify-between">
           <a
             href={`mailto:${listing.contactEmail}`}
+            onClick={(e) => e.stopPropagation()}
             className="text-sm text-blue-600 hover:underline"
           >
             Contact Seller
           </a>
           {isOwner && (
             <button
-              onClick={handleDelete}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete();
+              }}
               className="text-sm text-red-500 hover:text-red-700"
             >
               Delete
